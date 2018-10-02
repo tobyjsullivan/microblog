@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      const posts = [
+        {
+          'content': 'Mouseless clipboard in iTerm2. <a href="https://kevinjalbert.com/iterm2-mouseless-copy/">https://kevinjalbert.com/iterm2-mouseless-copy/</a>',
+          'date': '2018-10-01'
+        },
+        {
+          'date': '2018-10-01',
+          'content': 'Get a t-shirt for doing things you were going to do anyways! <a href="https://hacktoberfest.digitalocean.com/">https://hacktoberfest.digitalocean.com/</a>',
+        }
+      ];
+    </script>
+    <title>Toby's Microblog</title>
+    <style>
+      html {
+        background-color: #E6ECF0;
+        color: #000;
+      }
+
+      a {
+        color: #000;
+      }
+
+      .page {
+        display: grid;
+        grid-template-columns: auto 175px 465px auto;
+        grid-template-rows: auto;
+        grid-template-areas: 
+          "header header header header"
+          ". bio feed ."
+          ". . feed .";
+        grid-gap: 4px;
+        height: 100%;
+        margin: auto;
+        box-sizing: border-box;
+        font-family: sans-serif;
+        background-color: #E6ECF0;
+      }
+
+      .page-header {
+        grid-area: header;
+        text-align: center;
+        background-color: #fff;
+      }
+
+      .bio {
+        grid-area: bio;
+        margin: 0;
+        padding: 4px;
+      }
+
+      .feed {
+        grid-area: feed;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+
+      .feed-item {
+        margin: 0;
+        border-bottom: 1px solid #E6ECF0;
+      }
+
+      .post {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto;
+        grid-template-areas: 
+          "content content"
+          "author date";
+        margin: 0;
+        padding: 4px;
+        background-color: #fff;
+      }
+
+      .author-name {
+        grid-area: author;
+      }
+
+      .post-date {
+        grid-area: date;
+        text-align: right;
+      }
+
+      .post-content {
+        grid-area: content;
+      }
+    </style>
+  </head>
+  <body class="page">
+    <header class="page-header">
+      <h1 class="page-title">Toby Sullivan's microblog</h1>
+    </header>
+    <aside class="bio">
+      <p>I write code, drink coffee, and have opinions about beer.</p>
+      <p>Sydney, NSW</p>
+    </aside>
+    <ol id="feed" class="feed"></ol>
+    <script>
+      function addPost(post) {
+        const $feed = document.getElementById('feed');
+        const $feedItem = document.createElement('li');
+        $feedItem.setAttribute('class', 'feed-item');
+        const $post = document.createElement('article');
+        $post.setAttribute('class', 'post');
+        const $authorName = document.createElement('p');
+        $authorName.setAttribute('class', 'author-name');
+        $authorName.innerHTML = '@tobyjsullivan';
+        const $postDate = document.createElement('p');
+        $postDate.setAttribute('class', 'post-date');
+        $postDate.innerHTML = post.date;
+        const $postContent = document.createElement('p');
+        $postContent.setAttribute('class', 'post-content');
+        $postContent.innerHTML = post.content;
+
+        $post.appendChild($authorName);
+        $post.appendChild($postDate);
+        $post.appendChild($postContent);
+        $feedItem.appendChild($post);
+        $feed.appendChild($feedItem);
+      }
+
+      function init() {
+
+        for (let idx in posts) {
+          addPost(posts[idx]);
+        }
+      }
+
+      init();
+    </script>
+  </body>
+</html>
